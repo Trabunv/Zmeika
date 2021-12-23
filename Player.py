@@ -1,7 +1,4 @@
 import pygame
-# rect = pygame.Rect(50, 50, 200, 50)
-
-# cropped.blit(buttonStates, (0, 0), (30, 30, 80, 80))
 
 
 class Player:
@@ -18,7 +15,13 @@ class Player:
         self.x = screen.get_width()/2 - self.imWidth/2
         self.y = screen.get_height()/2 - self.imHeight/2
 
+    def getXY(self):
+        return self.x, self.y, self.imWidth, self.imHeight
+
     def move(self, screen):
+        """ Метод движения персонажа
+            На вход нужно подать на вход объект класса pygame.Screen()
+        """
         if pygame.key.get_pressed()[pygame.K_LEFT] and self.x > 0:
             self.x -= self.speed
             self.cropy = 5 * self.imHeight
@@ -43,6 +46,7 @@ class Player:
             self.cropxIndex = 0
 
     def draw(self, screen):
+        """Отрисовка персонажа"""
         self.rect = screen.blit(self.image,
                                 (self.x, self.y),
                                 (self.cropxIndex * self.imWidth, self.cropy, self.imWidth, self.imHeight))

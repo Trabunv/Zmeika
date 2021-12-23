@@ -20,9 +20,9 @@ class Background:
                         or y == max(range(len(self.map)))-1
                         or y == min(range(len(self.map)))
                 ):
-                    self.map[y][x] = 0.3
+                    self.map[y][x] = 0.4
                 elif (x*y) % 5 == 3:
-                    self.map[y][x] = 0.
+                    self.map[y][x] = 0.8
                 elif (x*y*2) % 7 == 3:
                     self.map[y][x] = 1.1
 
