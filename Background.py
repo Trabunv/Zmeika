@@ -6,11 +6,19 @@ class Background:
         self.image = pygame.image.load("images\link.png")
         self.image = pygame.transform.scale(self.image,
                                             (self.image.get_width(), self.image.get_height()))
-        # self.image.set_colorkey((255, 255, 255))
+        self.length = 25
         self.width = 30
         self.height = 30
-        self.map = np.ones((25, 25))
-        # self.map = [[1]*25]*25
+        self.map = np.ones((self.length, self.length))
+
+    def get_width(self):
+        return self.width
+
+    def get_height(self):
+        return self.height
+
+    def get_length(self):
+        return self.length
 
     def setmap(self):
         for y in range(len(self.map)):

@@ -23,7 +23,7 @@ pygame.font.init()
 myfont = pygame.font.SysFont('Times New Roman', 30)
 
 apple = Item()
-apple.placeItem(screen)
+apple.place_item(screen)
 countApples = 0
 # Цикл игры
 running = True
@@ -34,11 +34,13 @@ while running:
 
     apple.draw(screen)
     player.move(screen)
-    player.draw(screen)
 
-    if isAinsideB(player.getXY(), apple.getXY()): #если игрок коснулся яблока
-        apple.placeItem(screen)
+    if isAinsideB(player.get_pos(), apple.get_pos()): #если игрок коснулся яблока
+        apple.place_item(screen)
         countApples += 1
+        player.grow()
+
+    player.draw(screen)
 
     textsurface = myfont.render('Apples: ' + str(countApples), False, (150, 85, 155)) # Вывод количества яблок
     screen.blit(textsurface, (screen.get_width()/2 - 50, 0))
