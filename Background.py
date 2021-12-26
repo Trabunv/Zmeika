@@ -2,10 +2,8 @@ import pygame
 import numpy as np
 
 class Background:
-    def __init__(self):
-        self.image = pygame.image.load("images\link.png")
-        self.image = pygame.transform.scale(self.image,
-                                            (self.image.get_width(), self.image.get_height()))
+    def __init__(self, image_path="images\\background 800x600.jpg"):
+        self.image = pygame.image.load(image_path)
         self.length = 25
         self.width = 30
         self.height = 30
@@ -20,7 +18,10 @@ class Background:
     def get_length(self):
         return self.length
 
-    def setmap(self):
+    def set_image(self, image_path):
+        self.image = pygame.image.load(image_path)
+
+    def set_map(self):
         for y in range(len(self.map)):
             for x in range(len(self.map[0])):
                 if (x == max(range(len(self.map[0])))-1
@@ -35,6 +36,9 @@ class Background:
                     self.map[y][x] = 1.1
 
     def draw(self, screen):
+        self.rect = screen.blit(self.image, (0, 0))
+
+    def draw_map(self, screen):
         for y in range(len(self.map)):
             for x in range(len(self.map[0])):
                 surf = pygame.Surface((200, 150))
