@@ -8,10 +8,18 @@ class Item:
         self.rect = 0
         self.x = 0
         self.y = 0
+        self.length = 0
+        self.size = [0, 0]
 
-    def place_item(self, screen):
-        self.x = np.random.randint(0, screen.get_width()-self.image.get_width(), size=1)[0]
-        self.y = np.random.randint(0, screen.get_height()-self.image.get_height(), size=1)[0]
+    def place_item(self, length, size, screen):
+        self.length = length
+        self.size = size
+        self.x = np.random.randint(-(length - 2)*(size[0])/2,
+                                   (length - 5)*(size[0])/2,
+                                   size=1)[0] + screen.get_width()/2
+        self.y = np.random.randint(-(length - 2)*(size[1])/2,
+                                   (length - 5)*(size[1])/2,
+                                   size=1)[0] + screen.get_height()/2
 
     def get_pos(self):
         self.image = pygame.transform.scale(self.image, (50, 50))
@@ -19,4 +27,6 @@ class Item:
 
     def draw(self, screen):
         self.image = pygame.transform.scale(self.image, (50, 50))
-        self.rect = screen.blit(self.image, (self.x, self.y))
+        self.rect = screen.blit(self.image,
+                                (self.x, self.y)
+                                )
