@@ -52,7 +52,7 @@ class Background:
         for y in range(len(self.map)-1):
             for x in range(len(self.map[0])-1):
                 surf = pygame.Surface((200, 150))
-                surf.fill((7*y*self.map[y][x], 4*x*self.map[y][x], 155*self.map[y][x]))
+                surf.fill((4*y*self.map[y][x], 4*x*self.map[y][x], 155*self.map[y][x]))
                 self.rect = screen.blit(surf,
                                         ((screen.get_width() - (self.length - 1) * self.width)/2 + x * self.width,
                                          (screen.get_height() - (self.length - 1) * self.height)/2 + y * self.height),

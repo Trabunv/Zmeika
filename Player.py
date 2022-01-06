@@ -43,16 +43,16 @@ class Player:
         """ Метод движения персонажа
             На вход нужно подать на вход объект класса pygame.Screen()
         """
-        if pygame.key.get_pressed()[pygame.K_RIGHT] and self.current_movement != 'left':
+        if (pygame.key.get_pressed()[pygame.K_RIGHT] or pygame.key.get_pressed()[pygame.K_w]) and self.current_movement != 'left':
             self.current_movement = 'right'
 
-        if pygame.key.get_pressed()[pygame.K_LEFT] and self.current_movement != 'right':
+        if (pygame.key.get_pressed()[pygame.K_LEFT] or pygame.key.get_pressed()[pygame.K_a]) and self.current_movement != 'right':
             self.current_movement = 'left'
 
-        if pygame.key.get_pressed()[pygame.K_UP] and self.current_movement != 'down':
+        if (pygame.key.get_pressed()[pygame.K_UP] or pygame.key.get_pressed()[pygame.K_w]) and self.current_movement != 'down':
             self.current_movement = 'up'
 
-        if pygame.key.get_pressed()[pygame.K_DOWN] and self.current_movement != 'up':
+        if (pygame.key.get_pressed()[pygame.K_DOWN] or pygame.key.get_pressed()[pygame.K_s]) and self.current_movement != 'up':
             self.current_movement = 'down'
 
         if ((self.current_movement == 'left')
@@ -115,9 +115,9 @@ class Player:
             self.image = pygame.draw.circle(
                 screen,
                 (
-                    175 + (self.length * i) % 80,
-                    100,
-                    175 + (self.length * i) % 80
+                    200 + (self.length * i) % 55,
+                    125 + (self.length * i) % 130,
+                    25
                 ),
                 (self.pos_arr[i][0]+15, self.pos_arr[i][1]+15),
                 15
