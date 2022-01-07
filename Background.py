@@ -2,13 +2,15 @@ import pygame
 import numpy as np
 
 
-class Background:
+class Background(object):
+    """Класс, определяющий задний экран, размер, цвет и т.д."""
     def __init__(self, image_path="images\\background 800x600.jpg"):
         self.image = pygame.image.load(image_path)
         self.length = int(25)
         self.width = 30
         self.height = 30
         self.map = np.ones((self.length, self.length))
+        self.rect = 0
 
     def get_width(self):
         return self.width
@@ -31,11 +33,12 @@ class Background:
                 if (x == max(range(len(self.map[0])))-1
                         or x == min(range(len(self.map[0])))
                         or y == max(range(len(self.map)))-1
-                        or y == min(range(len(self.map)))
-                ):
+                        or y == min(range(len(self.map)))):
                     self.map[y][x] = 0.4
+
                 elif (x*y) % 5 == 3:
                     self.map[y][x] = 0.8
+
                 elif (x*y*2) % 7 == 3:
                     self.map[y][x] = 1.1
 
