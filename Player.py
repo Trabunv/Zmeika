@@ -2,13 +2,14 @@ import pygame
 from func import *
 
 
-class Player:
+class Player(object):
+    """Класс игрока, определяет положение, движение, отрисовку и другие параметры связанные с игроком"""
     def __init__(self, screen):
         self.image = pygame.image.load("images\\ball.png")
         alpha = 0.0234375
         self.image = pygame.transform.scale(self.image,
-                                            (self.image.get_width()*alpha, self.image.get_height()*alpha)
-                                            )
+                                            (self.image.get_width()*alpha, self.image.get_height()*alpha))
+
         self.rect = 0
         self.speed = 30
         self.length = 1
@@ -43,63 +44,65 @@ class Player:
         """ Метод движения персонажа
             На вход нужно подать на вход объект класса pygame.Screen()
         """
-        if (pygame.key.get_pressed()[pygame.K_RIGHT] or pygame.key.get_pressed()[pygame.K_w]) and self.current_movement != 'left':
+        if ((pygame.key.get_pressed()[pygame.K_RIGHT]
+             or pygame.key.get_pressed()[pygame.K_d])
+                and self.current_movement != 'left'):
             self.current_movement = 'right'
 
-        if (pygame.key.get_pressed()[pygame.K_LEFT] or pygame.key.get_pressed()[pygame.K_a]) and self.current_movement != 'right':
+        if ((pygame.key.get_pressed()[pygame.K_LEFT]
+             or pygame.key.get_pressed()[pygame.K_a])
+                and self.current_movement != 'right'):
             self.current_movement = 'left'
 
-        if (pygame.key.get_pressed()[pygame.K_UP] or pygame.key.get_pressed()[pygame.K_w]) and self.current_movement != 'down':
+        if ((pygame.key.get_pressed()[pygame.K_UP]
+             or pygame.key.get_pressed()[pygame.K_w])
+                and self.current_movement != 'down'):
             self.current_movement = 'up'
 
-        if (pygame.key.get_pressed()[pygame.K_DOWN] or pygame.key.get_pressed()[pygame.K_s]) and self.current_movement != 'up':
+        if ((pygame.key.get_pressed()[pygame.K_DOWN]
+             or pygame.key.get_pressed()[pygame.K_s])
+                and self.current_movement != 'up'):
             self.current_movement = 'down'
 
         if ((self.current_movement == 'left')
-                and self.x > (screen.get_width() - self.screen_width)/2
-                ):
+                and self.x > (screen.get_width() - self.screen_width)/2):
             self.x -= self.speed
             self.cropy = 5 * self.imHeight
             self.cropIndex = (self.cropIndex + 1) % 10
             self.snake_moving()
-            # self.current_movement = 'left'
             return True
 
         if ((self.current_movement == 'right')
-              and self.x < (screen.get_width() + self.screen_width)/2 - self.imWidth
-              and self.current_movement != 'left'):
+                and self.x < (screen.get_width() + self.screen_width)/2 - self.imWidth
+                and self.current_movement != 'left'):
             self.x += self.speed
             self.cropy = 7 * self.imHeight
             self.cropIndex = (self.cropIndex + 1) % 10
             self.snake_moving()
-            # self.current_movement = 'right'
             return True
 
         if ((self.current_movement == 'up')
-              and self.y > (screen.get_height() - self.screen_height)/2
-              and self.current_movement != 'down'):
+                and self.y > (screen.get_height() - self.screen_height)/2
+                and self.current_movement != 'down'):
             self.y -= self.speed
             self.cropy = 6 * self.imHeight
             self.cropIndex = (self.cropIndex + 1) % 10
             self.snake_moving()
-            # self.current_movement = 'up'
             return True
 
         if ((self.current_movement == 'down')
-              and self.y < (screen.get_height() + self.screen_height)/2 - self.imHeight
-              and self.current_movement != 'up'):
+                and self.y < (screen.get_height() + self.screen_height)/2 - self.imHeight
+                and self.current_movement != 'up'):
             self.y += self.speed
             self.cropy = 4 * self.imHeight
             self.cropIndex = (self.cropIndex + 1) % 10
             self.snake_moving()
-            # self.current_movement = 'down'
             return True
 
         else:
             self.cropy = 0 * self.imHeight
             self.cropIndex = 0
             return False
-            # self.snake_moving()
 
     def draw(self, screen):
         """Отрисовка персонажа"""
@@ -112,13 +115,12 @@ class Player:
 
     def draw_polygon(self, screen):
         for i in range(len(self.pos_arr)-1, -1, -1):
+            r = 200 + (5 * i) if 200 + (5 * i) <= 240 else 240
+            g = 125 + (5 * i) if 125 + (5 * i) <= 240 else 240
+            b = 25 + (5 * i) if 25 + (5 * i) <= 230 else 230
             self.image = pygame.draw.circle(
                 screen,
-                (
-                    200 + (self.length * i) % 55,
-                    125 + (self.length * i) % 130,
-                    25
-                ),
+                (r, g, b),
                 (self.pos_arr[i][0]+15, self.pos_arr[i][1]+15),
                 15
             )
